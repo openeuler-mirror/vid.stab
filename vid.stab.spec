@@ -5,7 +5,7 @@
 
 Name:           vid.stab
 Version:        1.1.0
-Release:        1
+Release:        2
 Summary:        Video stabilize library for fmpeg, mlt or transcode
 License:        GPLv2+
 URL:            http://public.hronopik.de/vid.stab
@@ -40,7 +40,11 @@ sed -i 's|-Wall -O0|-Wall -O|' tests/CMakeLists.txt
 sed -i 's|return units_failed==0;|return units_failed>0;|' tests/testframework.c
 
 %build
+%ifarch riscv64
+%cmake . -DSSE2_FOUND=0
+%else
 %cmake .
+%endif
 %make_build
 
 # build the tests program
@@ -68,5 +72,8 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} tests/tests || :
 %{_libdir}/pkgconfig/vidstab.pc
 
 %changelog
+* Mon Jun 19 2023 EastDong <xudong23@iscas.ac.cn> -1.1.0-2
+- Add RISC-V support
+
 * Fri May 07 2021 weidong <weidong@uniontech.com> - 1.1.0-1
 - Initial package.
