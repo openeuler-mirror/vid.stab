@@ -5,11 +5,12 @@
 
 Name:           vid.stab
 Version:        1.1.0
-Release:        1
+Release:        2
 Summary:        Video stabilize library for fmpeg, mlt or transcode
 License:        GPLv2+
 URL:            http://public.hronopik.de/vid.stab
 Source0:        https://github.com/georgmartius/vid.stab/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Patch0:         fix-clang.patch
 
 BuildRequires:  gcc gcc-c++ cmake
 BuildRequires:  orc-devel
@@ -38,6 +39,9 @@ sed -i 's|-DUSE_SSE2 -msse2||' tests/CMakeLists.txt
 sed -i 's|-Wall -O0|-Wall -O|' tests/CMakeLists.txt
 # use macros EXIT_SUCCESS and EXIT_FAILURE instead for portability reasons.
 sed -i 's|return units_failed==0;|return units_failed>0;|' tests/testframework.c
+%if "%toolchain" == "clang"
+%patch0 -p1
+%endif
 
 %build
 %cmake .
@@ -68,5 +72,8 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} tests/tests || :
 %{_libdir}/pkgconfig/vidstab.pc
 
 %changelog
+* Thu Jun 29 2023 yoo <sunyuechi@iscas.ac.cn> - 1.1.0-2
+- fix clang build error: omp
+
 * Fri May 07 2021 weidong <weidong@uniontech.com> - 1.1.0-1
 - Initial package.
