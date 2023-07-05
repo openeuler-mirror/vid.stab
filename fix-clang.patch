@@ -1,0 +1,24 @@
+diff -u -r vid.stab-aeabc8daa7904f9edf7441a11f293965a5ef53b8/CMakeLists.txt vid.stab-aeabc8daa7904f9edf7441a11f293965a5ef53b8/CMakeLists.txt
+--- vid.stab-aeabc8daa7904f9edf7441a11f293965a5ef53b8/CMakeLists.txt	2019-02-13 15:45:44.000000000 +0800
++++ vid.stab-aeabc8daa7904f9edf7441a11f293965a5ef53b8/CMakeLists.txt	2023-06-29 10:13:20.000000000 +0800
+@@ -19,7 +19,7 @@
+ option(BUILD_SHARED_LIBS "build shared libraries instead of static libraries"
+        ON)
+ 
+-option(USE_OMP "use parallelization use OMP" ON)
++option(USE_OMP "use parallelization use OMP" OFF)
+ 
+ add_definitions(-Wall -Wno-pointer-sign -fPIC -std=gnu99)
+ 
+diff -u -r vid.stab-aeabc8daa7904f9edf7441a11f293965a5ef53b8/tests/CMakeLists.txt vid.stab-aeabc8daa7904f9edf7441a11f293965a5ef53b8/tests/CMakeLists.txt
+--- vid.stab-aeabc8daa7904f9edf7441a11f293965a5ef53b8/tests/CMakeLists.txt	2019-02-13 15:45:44.000000000 +0800
++++ vid.stab-aeabc8daa7904f9edf7441a11f293965a5ef53b8/tests/CMakeLists.txt	2023-06-29 10:15:03.000000000 +0800
+@@ -9,7 +9,7 @@
+ 
+ include (FindSSE)
+ 
+-option(USE_OMP "use parallelization use OMP" ON)
++option(USE_OMP "use parallelization use OMP" OFF)
+ 
+ # Default to debug builds if no explicit build type specified.
+ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
